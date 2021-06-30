@@ -1,0 +1,29 @@
+
+public class Ex100<E> {
+
+	
+	
+	public Ex100() {
+		String data ="서울시 마포구 백범로";
+		GenericTest gt = new GenericTest();
+		gt.setUsername(data);
+		
+		GenericTest<MemberVO> gt3 =new GenericTest<MemberVO>();
+		gt3.setUsername(new MemberVO("홍","기획부","2021-01-21",8000));
+		
+		
+		
+		}
+		
+	
+	
+	
+	public static void main(String[] args) {
+	
+		}
+		
+		
+
+	}
+
+

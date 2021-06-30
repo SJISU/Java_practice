@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;LottoOOP_TreeSet.java&apos; to &apos;java07_collections/src/(default package)&apos;&#x0D;&#x0A;- Original project: &apos;lotto&apos;&#x0D;&#x0A;- Destination element: &apos;java07_collections/src/(default package)&apos;&#x0D;&#x0A;- Original element: &apos;LottoOOP_TreeSet.java&apos;" description="Copy compilation unit" destination="=java07_collections/src&lt;" element1="/src&lt;{LottoOOP_TreeSet.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1624344731151" units="1" version="1.0"/>
+</session>

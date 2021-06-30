@@ -1,0 +1,125 @@
+//Frame은 닫기가 안됬는데 JFrame은 닫기가 된다
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridLayout;
+
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JToggleButton;
+//								default : BorderLayout //기본값이...
+public class JFrameTest extends JFrame {
+	
+	ImageIcon icon1 = new ImageIcon("img/haha.jpg");
+	ImageIcon icon2 = new ImageIcon("img/ha.jpg");
+	ImageIcon icon3 = new ImageIcon("img/hahaha.jpg");
+	
+	public JFrameTest(){
+		
+		//BorderLayout을 GridLayout으로변경하기
+		//변경하고싶은 레이아웃을 객체로만든다-> JFrame 의 레이아웃변경메소드 사용하여 변경
+		GridLayout layout = new GridLayout(3,2,10,10); //3행2열 위아래 여백10-가장자리는 여백확보안됨
+		setLayout(layout); //레이아웃변경메소드안에 객체로만든레이아웃을 넣어서 변경
+		
+		//버튼만들기 
+		JButton btn1 = new JButton("버튼1"); //(string)
+		add(btn1);		
+		
+		JButton btn2 = new JButton(icon1);//(icon) //매개변수가 아이콘->imageicon클래스로가서....
+		add(btn2);	
+		//마우스로 버튼을 누를때 icon 바꾸기 //.setPressedIcon()
+		btn2.setPressedIcon(icon2);
+		//마우스 오버시 icon 바꾸기 //.setRolloverIcon()
+		btn2.setRolloverIcon(icon3);
+		
+		JButton btn3 = new JButton("꽃",icon1); // (String,icon)
+		add(btn3);	
+		// 버튼을 활성화(true) 비활성화(false) ->.setEnabled()
+		btn3.setEnabled(false);
+		
+		JButton btn4 = new JButton("버튼4");
+		add(btn4);
+		
+		//JRadioButton- ButtonGroup에 의존 //여러개중에 한개를 쓸수있는 버튼 ex) 성별체크
+		//컨테이너를 써서 여러개의 레디오버튼을 한 구역에 넣는다 ->> container -panel(테두리x)(-기본레이아웃이 :flow) -> 이걸 그리드레이아웃에넣는다
+		//라디오 버튼
+		JPanel pane = new JPanel(new GridLayout(3,1)); //테두리가 없는 컨테이너..라이도버튼3개만들거라 3행1열로
+		JRadioButton rBtn1 = new JRadioButton("ONE"); 
+		JRadioButton rBtn2 = new JRadioButton("TWO");
+		JRadioButton rBtn3 = new JRadioButton("THREE");  //JPanel 안에 레디오버튼 3개 넣을거만듬
+		
+		//라디오 버튼 그룹 만들기 ->세개의 레디오버튼을 묶어준다고생각
+		ButtonGroup bg = new ButtonGroup();
+		bg.add(rBtn1);  bg.add(rBtn2);  bg.add(rBtn3); //여러개중 한개의 라디오버튼만 체크 가능해짐			
+		pane.add(rBtn1);
+		pane.add(rBtn2);
+		pane.add(rBtn3); //JPanel 안에 레디오버튼 3개 넣음
+		add(pane);//Frame안에 패널추가
+		
+		//JToggleButton
+		//토글버튼
+		JToggleButton toggleBtn = new JToggleButton("토글",icon3);
+		//.setRolloverIcon() , .setRolloverIcon()
+		toggleBtn.setRolloverIcon(icon1);
+		toggleBtn.setSelectedIcon(icon2); //선택되면 이미지바뀐채로 고정 다시 눌러주면 원래이미지로
+		add(toggleBtn);
+		
+		//JLabel 라벨만들기
+		JLabel lb1 = new JLabel ("라벨표시",JLabel.CENTER); //기본값이 왼쪽정렬이므로 위치변경은 -> JLabel.CENTER , JLabel.RIGHT 		
+		add(lb1); //frame에 라벨 추가
+		
+		//배경색 컬러설정하기 => .setBackground()
+		//->JButton에서 컬러지정하는메소드찾아서 ->JComponent -setBackground(color fg)->color객체 만드는법 알아야됨->awt의 color클래스->
+		//색 변수가 static 이기때문에 -> 클래스명.색 -> Color.blue....이런식으로 사용-컬러변수는 대문자소문자 둘다사용가능한->상수말고rgb코드로도 가능
+		btn1.setBackground(Color.orange);		
+		//컬러객체를 만들어서 셋팅
+		//			R:0~255,G:0~255,B:0~255
+		Color clr= new Color(100, 100, 200);
+		toggleBtn.setBackground(clr); //토글버튼 배경색으로 셋팅
+		
+		//글자색컬러설정하기 => .setForeground()
+		btn1.setForeground(Color.WHITE);
+		
+		//라벨에 배경색 정하기
+		//투명처리 해제메소드 .setOpaque() ->해제를 해야지 배경색이 나온다
+		lb1.setOpaque(true); //true:투명처리해제 , false :투명처리
+		lb1.setBackground(new Color(200, 100,100)); //=>해제메소드를 윗줄에서 안해주면 에러는 안나오지만 라벨은 투명처리되어있기때문에 배경색이 안나옴...
+		
+		//Font클래스 : 글꼴(굴림체,돋음체,Arial...), 글자유형(기울임, 진하게,보통), 글자크기설정(px)
+		//이 클래스는 객체생성할수없음 -> 생성메소드가 protected형이라서 -> 굳이 쓰고싶을때는 상속받아서 ->protected형아닌다른생성메소드쓸거
+		//Font(String name , int style, int size) 글꼴 글자유형 글자크기 => static변수 => 클래스.변수로 사용가능
+		Font fnt = new Font("궁서체", Font.ITALIC+Font.BOLD, 40);
+		lb1.setFont(fnt); //라벨의 글자에 적용시킴		
+		
+		
+		//창 폭 설정
+		setSize(1000,500);
+		setVisible(true);
+		//프로그램이 종료되면 자원해제 하거나, 프로그램을 종료할수 없도록 설정.....
+		//JFrame은 작업관리자에서 직접 종료해줘야한다. ->자원해제
+		//DISPOSE_ON_CLOSE : 프로그램종료시 자원을 해제하라.
+		//DO_NOTHING_ON_CLOSE : 닫기가 수행되지 않는다
+		
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE); //frame엔없고 스윙엔 있는것.......
+		//setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		
+		//밀리초 만큼 일시정지 //잠시 쉼 -> 코드를 잠시 쉬게		
+		try {
+			Thread.sleep(5000);  //밀리초
+		}catch(InterruptedException e) {			
+		}
+		//버튼의 라벨,Label의 라벨을 변경하기
+		//.setText() ->abstractButton의 메소든
+		btn1.setText("변경된 버튼라벨");
+		lb1.setText("변경된라벨");		
+	}	
+
+	public static void main(String[] args) {
+		new JFrameTest();
+	}
+}

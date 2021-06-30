@@ -1,0 +1,25 @@
+
+public class Ex100<E> {
+
+	
+	
+	public Ex100() {
+		VectorTest vt = new VectorTest();
+		Vector vvv = vt.start();
+		
+		String aaa= (String)vvv.elementAt(0);
+		Calendar   ccc =(Calendar)vvv.get(1);
+		
+	}
+	
+	
+	
+	public static void main(String[] args) {
+	
+		}
+		
+		
+
+	}
+
+

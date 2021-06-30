@@ -1,0 +1,21 @@
+
+public class HashMAPTest {
+
+	public HashMAPTest() {
+		//Map interface를 상속받은 클래스는 key,value 가 존재한다
+		//1.HashMapdm운 key와 value데이터를 저장한다
+		//2.TreeMap은 key와 value로 데이터를 저장하고,key기준으로 정렬된다
+		
+	}
+
+	
+	
+	
+	
+	
+	public static void main(String[] args) {
+		new HashMapTest();
+
+	}
+
+}

@@ -1,0 +1,41 @@
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+
+public class DigtalClock extends JFrame  {
+		
+	Calendar now = Calendar.getInstance();
+
+	public DigtalClock() {
+
+		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+		
+		JButton btn1 = new JButton(sdf.format(now.getTime())); 
+		add(btn1);	
+		//시계.......
+		
+		btn1.setBackground(Color.WHITE);
+		Font fnt = new Font("궁서체",Font.BOLD,100);
+		btn1.setFont(fnt);		
+		
+//		try {
+//			Thread.sleep(1000); //5초 //밀리초
+//		}catch(InterruptedException e) {}
+		
+		//시간변경......
+		//btn1.set(sdf.format(now.getTime()));
+		
+		setSize(500,500);
+		setTitle("시계");
+		setVisible(true);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);		
+	}	
+	public static void main(String[] args) {
+		new DigtalClock();		
+	}
+}

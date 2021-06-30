@@ -1,0 +1,9 @@
+package Boinfor;
+
+public class BoDataSet {
+
+	public BoDataSet() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

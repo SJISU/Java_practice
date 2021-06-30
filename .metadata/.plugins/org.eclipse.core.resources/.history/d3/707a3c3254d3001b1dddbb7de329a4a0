@@ -1,0 +1,28 @@
+
+public class Ex100<E> {
+	private E userName;
+	
+	
+	public Ex100() {
+		
+		}
+		
+	public Ex100(E userName) {
+		
+	}
+	
+	
+	public void setUsername(E username) {
+		this.username = username;
+	}
+	
+	
+	public static void main(String[] args) {
+	
+		}
+		
+		
+
+	}
+
+

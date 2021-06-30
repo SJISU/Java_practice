@@ -1,0 +1,83 @@
+package Bookinfor;
+
+import java.util.Scanner;
+
+import Login.LogVo;
+import Login.Login;
+
+public class BookMain {
+	
+	Scanner scan = new Scanner(System.in);
+
+	public BookMain() {
+		
+	}
+	public static void main(String[] args) {
+		
+		BookManager bo = new BookManager();			
+		
+
+		
+		
+		bo.selectUser();	
+	
+	}
+//++++++++++++++++++++++++++++++++++++++++++++++++++++	
+	
+//	public void join2() {
+//		Login aa = new Login();
+//		
+//		Boolean A=false;
+//		do {
+//			String newId = inData("일반사용자 id를 입력하시오(5글자 이하)=");//
+//				
+//				if(newId=="")
+//				{
+//					System.out.println("한글자 이상입력해주세요");
+//					join2();
+//					break;
+//				}
+//				if(newId.length()<=5){		
+//					if(Login.lo.containsKey(newId)) {
+//					System.out.println("중복된 id입니다. 다른id를 입력하세요.");
+//					continue;
+//					
+//					}else {		
+//								
+//								while(true) {
+//									String newPw = inData("일반사용자 pw를 입력하시오=");
+//									if(newPw.length()<1) {
+//										System.out.println("한글자 이상입력해주세요");
+//										
+//									}else {
+//										String newName = inData("일반사용자 이름를 입력하시오=");//추가-이름입력
+//										
+//										String newTel = inData("일반사용자 핸드폰번호 뒷자리 4글자를 입력하시오=");//추가-폰번호 뒷자리 4자리 입력
+//										
+//									}
+//									
+//									
+//								}
+//								
+//								
+//								
+//						
+//						
+//					}					
+//				}
+//				else if(newId.length()>5){						
+//					System.out.println("입력 가능한 id 글자 수를 초과하였습니다");
+//					A=true;
+//				}				
+//		}while(A==true);
+//}
+		
+	
+
+	public String inData(String msg) {
+		System.out.print(msg);
+		return scan.nextLine();
+	}
+	
+
+}

@@ -1,0 +1,9 @@
+package Empinfor;
+
+public class EmpDataSet {
+
+	public EmpDataSet() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

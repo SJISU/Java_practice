@@ -1,0 +1,55 @@
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
+
+public class HashMapTest {
+
+	public HashMapTest() {
+		//Map interface를 상속받은 클래스는 key,value 가 존재한다
+		//1.HashMapdm운 key와 value데이터를 저장한다
+		//2.TreeMap은 key와 value로 데이터를 저장하고,key기준으로 정렬된다
+		
+				
+		HashMap<Integer, String > hm = new HashMap<Integer, String >();
+		//객체명.put(k,y) -> 객체추가
+		hm.put(1, "홍길동");
+		hm.put(100, "세종대왕");
+		hm.put(50, "이순신");     
+		hm.put(25, "장영실");	
+		hm.put(33, "유승룡"); //HashMap저장소 객체안에 k와v를 각각 순서대로 정렬해서 저장,,1하면 홍길동이나오고 100하면 세종대왕이나오고...
+		
+		//객체명.get(k,y)-> 값얻어오는것,값가져오는것
+		String name = hm.get(100); //100을 썻지만 int가아니고 intdger로 보는것->자바가상머신이형변환해주고잇음
+		System.out.println("100->"+name); //key로 value값 알수있다
+		
+		//key가뭔지 알아내서 value값 구하기 ->key의 정보 구하는 메소드
+		//Map에서 구한걸 Set에 담아서 구해준다 		
+		//HashMap 에서 key목록을 구하여 Set에 담아준다.
+		Set<Integer>keyList = hm.keySet(); //keyList의 다섯명의 목록이 들어감...
+		
+		//Set인터페이스의 메소드사용해서 꺼내주기:set에는 한개씩 구하는 기능없음->iterator상속받아서 하나씩 꺼내주기
+		Iterator<Integer> ii = keyList.iterator(); //iterator 호출
+		//iterator->객체명.hasNext()
+		while(ii.hasNext()) {//객체가 있으면 true,없으면 false 
+			int k = ii.next();
+			System.out.println("key="+k+" value="+hm.get(k));
+		}
+		
+		HashMap<String, MemberVO> hm2 = new HashMap<String, MemberVO>();
+		
+		
+		
+		
+	}
+
+	
+	
+	
+	
+	
+	public static void main(String[] args) {
+		new HashMapTest();
+
+	}
+
+}

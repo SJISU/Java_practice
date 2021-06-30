@@ -1,0 +1,32 @@
+import java.awt.Frame;
+
+// 컨테이너 Frame상속받아 구현하기
+public class FrameTest extends Frame    {
+
+	public FrameTest() {
+		//창의 제목 -> setTitle()
+		//1.메소드 이용하여 제목설정하는방법
+		//setTitle("프레임생성연습중")				
+		//2.생성자이용해서 제목설정하는방법
+		super("하위에서 제목설정"); //Frame("하위에서 제목설정")->상위클래스의 매개변수를가지는 생성메소드를 사용해서 ->super()
+		
+		//창의 크기(pixel) ->상속받은 Frame 의 상위클래스 Window클래스 기능사용 -> setSize(),setBounds()...
+		//setSize(500,400); //상위클래스의 메소드를 내거처럼 사용
+		//		  x   y    w   h
+		setBounds(200,200,500,400); //x좌표는왼쪽에서 얼만큼띄울거냐 y는 위에서얼만큼 뛰울거냐
+		
+		//창을 보여주기-숨기는기능도있음 ->크기설정한  창을 보여주는...-> setVisible()		
+		setVisible(true); //true:보여줌 false:안보여줌(삭제x)  //여기까지 하고 컴파일하면 아무것도없는 창이뜬다-x눌러도 창 종료안됨
+		
+		
+		
+		
+
+	}
+
+	public static void main(String[] args) {
+		new FrameTest();
+		
+	}
+
+}

@@ -1,0 +1,20 @@
+import java.util.Iterator;
+
+public class Ex200 {
+
+	public Ex200() {
+		
+		Iterator<Double> ii=hs.iterator();
+		while(ii.hasNext()) {
+			double data =ii.next();
+			System.out.println(data);
+		}
+		
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

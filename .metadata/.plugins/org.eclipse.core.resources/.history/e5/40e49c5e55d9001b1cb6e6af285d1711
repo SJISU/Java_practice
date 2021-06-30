@@ -1,0 +1,41 @@
+import java.awt.GridLayout;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+
+public class DigtalClock extends JFrame  {
+		
+	Calendar now = Calendar.getInstance();
+
+
+	public DigtalClock() {
+		
+//		GridLayout layout = new GridLayout(1,1); 
+//		setLayout(layout); 
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+		
+		JButton btn1 = new JButton(sdf.format(now.getTime())); 
+		add(btn1);	
+		//시계.......
+		//SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+		//String time = sdf.format(now.getTime());
+		
+		
+		setSize(500,500);
+		setTitle("시계");
+		setVisible(true);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		
+	}
+
+	
+	
+	
+	public static void main(String[] args) {
+		new DigtalClock();
+		
+	}
+}

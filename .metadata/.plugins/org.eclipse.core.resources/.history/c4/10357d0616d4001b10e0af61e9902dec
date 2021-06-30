@@ -1,0 +1,10 @@
+public class LibMain {
+
+	public LibMain() {
+		
+		Login Lo =new Login();
+		Lo.logStart();
+		// TODO Auto-generated constructor stub
+	}
+
+}

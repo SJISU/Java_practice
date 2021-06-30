@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;Boinfor.BoDDataSet&apos; to &apos;BoDataSet&apos;&#x0D;&#x0A;- Original project: &apos;java_book&apos;&#x0D;&#x0A;- Original element: &apos;Boinfor.BoDDataSet&apos;&#x0D;&#x0A;- Renamed element: &apos;Boinfor.BoDataSet&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;BoDDataSet&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;Boinfor{BoDDataSet.java[BoDDataSet" matchStrategy="1" name="BoDataSet" qualified="false" references="true" similarDeclarations="false" stamp="1624455418297" textual="false" version="1.0"/>
+</session>

@@ -1,0 +1,41 @@
+import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.Point;
+import java.awt.Rectangle;
+
+// 컨테이너 Frame상속받아 구현하기
+public class FrameTest extends Frame    {
+	
+	Point xy = new Point(500,300);
+	Dimension wh = new Dimension(500,300);
+	Rectangle rect = new Rectangle(100,100,400,400);
+
+	public FrameTest() {
+		//창의 제목 -> setTitle()
+		//1.메소드 이용하여 제목설정하는방법
+		//setTitle("프레임생성연습중")				
+		//2.생성자이용해서 제목설정하는방법
+		super("하위에서 제목설정"); //Frame("하위에서 제목설정")->상위클래스의 매개변수를가지는 생성메소드를 사용해서 ->super()
+		
+		//창의 크기(pixel) ->상속받은 Frame 의 상위클래스 Window클래스 기능사용 -> 1.setSize(), 2.setBounds()...
+		setSize(wh);
+		//setSize(500,500); //w,h	-> Dimension  폭과높이	//상위클래스의 메소드를 내거처럼 사용
+		//setLocation(300,300);// x,y -> point x좌표,y좌표	//x좌표는왼쪽에서 얼만큼띄울거냐 y는 위에서얼만큼 뛰울거냐	 
+		//		  x   y    w   h
+		//setBounds(200,200,500,400); //-> Rectangle  x좌표,y좌표x,폭,높디
+		
+		//창을 보여주기-숨기는기능도있음 ->크기설정한  창을 보여주는...-> setVisible()		
+		setVisible(true); //true:보여줌 false:안보여줌(삭제x)  //여기까지 하고 컴파일하면 아무것도없는 창이뜬다-x눌러도 창 종료안됨
+		
+		
+		
+		
+
+	}
+
+	public static void main(String[] args) {
+		new FrameTest();
+		
+	}
+
+}

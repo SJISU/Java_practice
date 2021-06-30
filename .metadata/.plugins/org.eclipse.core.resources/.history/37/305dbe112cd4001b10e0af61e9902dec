@@ -1,0 +1,9 @@
+package Boinfor;
+
+public class BooVO {
+
+	public BooVO() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

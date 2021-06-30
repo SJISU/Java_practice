@@ -1,0 +1,84 @@
+package Bookinfor;
+
+public class BoVO {
+	private String name;//책이름
+	private String writer;//저자
+	private String check;//
+	private String cate;//청구기호
+	private String date;//반납예정일
+	//private boolean borrow;
+	public BoVO() {
+	
+	}
+	
+	public BoVO(String name ,String writer,String check,String cate,String date) {
+		this.name= name;
+		this.writer = writer;
+		this.check =check;
+		this.cate=cate;
+		this.date=date;		
+		//borrow....
+	}
+	
+	public void boVOPrint() {		
+		System.out.printf("%-15s %-5s %10s %-20s %-15s\n",name ,writer,check,cate,date); //한줄에 80글자
+	}
+	
+	//타이틀 찍기
+	public static void titlePrint() {
+		System.out.println("============================================================================================");
+		System.out.printf("%-15s %-5s %10s %-20s %-15s\n","책이름","저자","대출상태","청구기호","반납예정일");
+		System.out.println("============================================================================================");
+	}
+	
+	public String toString() {
+		String bookData=name+","+writer+","+check+","+cate+","+date;
+		return bookData;
+	}
+	
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getWriter() {
+		return writer;
+	}
+
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
+
+	public String getCheck() {
+		return check;
+	}
+
+	public void setCheck(String check) {
+		this.check = check;
+	}
+
+	public String getCate() {
+		return cate;
+	}
+
+	public void setCate(String cate) {
+		this.cate = cate;
+	}
+	
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	
+	
+	
+
+}

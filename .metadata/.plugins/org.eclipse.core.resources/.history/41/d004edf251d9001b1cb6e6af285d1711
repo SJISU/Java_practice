@@ -1,0 +1,18 @@
+import javax.swing.JFrame;
+
+public class DigtalClock extends JFrame  {
+	
+	JFrame jf = new JFrame("½Ã°è");
+
+	public DigtalClock() {
+		
+	}
+
+	
+	
+	
+	public static void main(String[] args) {
+		new DigtalClock();
+		
+	}
+}

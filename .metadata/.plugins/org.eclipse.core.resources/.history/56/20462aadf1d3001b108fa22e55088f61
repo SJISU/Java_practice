@@ -1,0 +1,9 @@
+package Bookinfor;
+
+public class BookDataSet {
+
+	public BookDataSet() {
+		// TODO Auto-generated constructor stub
+	}
+
+}
