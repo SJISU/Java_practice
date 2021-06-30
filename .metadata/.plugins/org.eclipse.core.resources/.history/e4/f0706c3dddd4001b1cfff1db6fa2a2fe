@@ -1,9 +1,0 @@
-package Login;
-
-public class LogDateLogin {
-
-	public LogDateLogin() {
-		
-	}
-
-}
