@@ -1,9 +1,0 @@
-package Empinfor;
-
-public class EmpVO {
-
-	public EmpVO() {
-		// TODO Auto-generated constructor stub
-	}
-
-}

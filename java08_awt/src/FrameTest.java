@@ -23,9 +23,10 @@ public class FrameTest extends Frame    {
 		super("하위에서 제목설정"); //Frame("하위에서 제목설정")->제목설정해주는 상위클래스의 매개변수를가지는 생성메소드를 사용해서 ->super()
 		
 		//창의 크기(pixel) ->상속받은 Frame 의 상위클래스 Window클래스 기능사용 -> 1.setSize(), 2.setBounds()...
-		//setSize(wh);
+		//setSize(w,h);
 		//setSize(500,500); //w,h	-> Dimension  폭과높이	//상위클래스의 메소드를 내거처럼 사용		
 		//setLocation(300,300);// x,y -> point x좌표,y좌표	//x좌표는왼쪽에서 얼만큼띄울거냐 y는 위에서얼만큼 뛰울거냐	 
+		//setLocation(xy);
 		
 		//		  x   y    w   h
 		//setBounds(200,200,500,400); //-> Rectangle  x좌표,y좌표x,폭,높이 -> setSize와 setLocation을 한번에...
@@ -49,6 +50,7 @@ public class FrameTest extends Frame    {
 		Button btn2 = new Button("2222222");
 		Button btn3 = new Button("3333333");
 		Button btn4 = new Button("4444444");			
+		
 		//add(String name ,Component comp);->name에서 위치설정 ,오른쪽엔 우리가만든 버튼 컴포넌트객체명
 		//add(Component comp, int index); -> int에서 위치설정 
 		//		"NORTH"

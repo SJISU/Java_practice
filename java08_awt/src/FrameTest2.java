@@ -1,7 +1,8 @@
+//2.按眉屈己
 import java.awt.Button;
 import java.awt.Frame;
 
-//按眉屈己窍咯
+
 public class FrameTest2 {
 	
 	Frame frm = new Frame("力格");
