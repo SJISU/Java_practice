@@ -44,7 +44,7 @@ public class MemberMain extends JFrame implements ActionListener{
 							,new JButton("폼지우기"),new JButton("종료")
 							,new JButton("엑셀쓰기")	,new JButton("엑셀읽기")};
 		
-		DefaultTableModel model;
+			DefaultTableModel model;
 		String title = "번호/이름/연락처/이메일/주소/등록일";
 		JTable memberList;
 		JScrollPane sp;
@@ -158,7 +158,7 @@ public class MemberMain extends JFrame implements ActionListener{
 		add(BorderLayout.SOUTH,southPane);
 		
 		//southPane.add(searchLb1);
-		searchModel.addElement("이름");
+		searchModel.addElement("이름"); //콤보박스 목록 내용
 		searchModel.addElement("전화번호");
 		searchModel.addElement("주소");
 		southPane.add(searchkey);

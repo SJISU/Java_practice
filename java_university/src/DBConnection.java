@@ -19,9 +19,9 @@ public class DBConnection {
 	PreparedStatement pstmt;
 	ResultSet rs;
 	
-	String Url = "jdbc:oracle:thin:@localhost:1521:xe";
-	String username = "c##scott";
-	String password = "tiger";
+	String Url = "jdbc:oracle:thin:@bitcamp4.iptime.org:1521:xe";
+	String username = "c##TEST04";
+	String password = "qazwsxedc";
 	String sql;
 	public DBConnection() {
 		
@@ -29,8 +29,11 @@ public class DBConnection {
 	//db연결
 	public void dbConn() {
 		try {
-			con = DriverManager.getConnection(Url,username,password);			
+			con = DriverManager.getConnection(Url,username,password);
+			System.out.println("디비클래스연결성공");
 		}catch(Exception e) {
+
+			System.out.println("디비클래스연결실패");
 			e.printStackTrace();
 		}
 	}
