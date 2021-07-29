@@ -70,7 +70,7 @@ public class StudentDAO extends DBConnection{
 				vo.setStu_name(rs.getString(4));
 				vo.setStu_grade(rs.getString(5));
 				vo.setStu_email(rs.getString(6));
-				vo.setStu_tel(rs.getString(7)); //int?
+				vo.setStu_tel(rs.getString(7)); 
 				vo.setStu_add(rs.getString(8));
 				vo.setStu_state(rs.getString(9));
 				vo.setStu_date(rs.getString(10));
@@ -135,7 +135,7 @@ public class StudentDAO extends DBConnection{
 			pstmt = con.prepareStatement(sql);
 			
 			pstmt.setInt(1, vo.getMajor_Code());
-			pstmt.setString(2, vo.getStu_pw());
+			pstmt.setString(2, vo.getStu_birth());
 			pstmt.setString(3, vo.getStu_name());
 			pstmt.setString(4,vo.getStu_grade());
 			pstmt.setString(5,vo. getStu_email());

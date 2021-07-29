@@ -24,27 +24,39 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 public class StudentMain extends UI_2 implements ActionListener ,MouseListener {
-	JTextField tf;	
-	JComboBox<String> jcb;
-	JButton jbt;
-	JButton jbt2;
 	
-	JTable table;
-	JScrollPane sp; 
-	DefaultTableModel model;
+	
+	
 	Font font = new Font("돋음", Font.BOLD, 20);
 	
 	JPanel centerPane = new JPanel(new BorderLayout());//UI_2 센터에 패널더함
+	
+	//학생정보관리-학생전체조회화면	
+	JPanel northPane;
+		JTextField tf;	
+		JComboBox<String> jcb;
+		JButton jbt;
+		JButton jbt2;
+		
+	JPanel centercenterPane;	
+		JTable table;
+		JScrollPane sp; 
+		DefaultTableModel model;
+		String title;
+		
+	
 	//학생조회
 	JPanel updatePane; //south-수정패널
-		JTable updateTable;
-		JScrollPane sp2; 
-		DefaultTableModel updatemodel;
-		
-		
-		
-		JButton updateJbt; //수정버튼
-		JButton deleteJbt;
+		JPanel updateNorth;
+			JLabel updateLb1;
+		JPanel updateCenter; 		
+			JTable updateTable;
+			JScrollPane sp2; 
+			DefaultTableModel updatemodel;
+			String title2;
+		JPanel updateSouth;		
+			JButton updateJbt; //수정버튼
+			JButton deleteJbt;
 	
 	//학생추가,삭제화면
 	JPanel insertPane;//centerPane - north
@@ -58,29 +70,31 @@ public class StudentMain extends UI_2 implements ActionListener ,MouseListener {
 									, new JTextField(4),new JTextField(30),new JTextField(15),new JTextField(45)
 									, new JTextField(10),new JTextField(15), new JTextField(20),};  
 		JPanel insertSouthP; //insertPane-south
-	
+			JButton insertJbt;
 	JPanel deletePane;//centerPane- center
 		JPanel deletelb1P; //deletrPane-north
 			JLabel deletelb1; 
 		JPanel deleteCenterP; //deletrPane-center
 			JTextField deleteTf;
+			JLabel deleteLb1;
+			JButton deleteJbt2;
 	
 	public StudentMain() {
 		
 		init();
 		add(centerPane);
 //		
-//		showStudentAll();//1-1.조회,수정화면 기본셋팅
-//		studentAllList();//1-2.학생전체조회+검색버튼이벤트처리
+		showStudentAll();//1-1.조회,수정화면 기본셋팅
+		studentAllList();//1-2.학생전체조회+검색버튼이벤트처리
 		
-		studentInsertView(); //2.학생추가,학생삭제
+		//studentInsertView(); //2.학생추가,학생삭제
 		
 	}
 
 	//학생정보관리-학생전체조회화면	
 	public void showStudentAll() {
 	
-		JPanel northPane = new JPanel(new FlowLayout(FlowLayout.LEFT));  //제이콤보박스 텍스드필드 검색버튼
+		northPane = new JPanel(new FlowLayout(FlowLayout.LEFT));  //제이콤보박스 텍스드필드 검색버튼
 
 		System.out.println("학생전체조회화면메소드시작"); //TEST
 			String comboList[] = {"학생번호", "학생이름", "학과전공"};
@@ -95,9 +109,9 @@ public class StudentMain extends UI_2 implements ActionListener ,MouseListener {
 			
 		centerPane.add(BorderLayout.NORTH,northPane);//센터페널에 검색페널추가
 			
-		JPanel centercenterPane = new JPanel(new BorderLayout());
+		centercenterPane = new JPanel(new BorderLayout());
 			
-			String title= "학생번호/전공번호/비밀번호/학생이름/학년/이메일/핸드폰/주소/학적상태/가입일자/생년월일"; 
+			title= "학생번호/전공번호/비밀번호/학생이름/학년/이메일/핸드폰/주소/학적상태/가입일자/생년월일"; 
 			model = new  DefaultTableModel(title.split("/"),0);
 
 		    table = new JTable(model);
@@ -111,20 +125,20 @@ public class StudentMain extends UI_2 implements ActionListener ,MouseListener {
 
 		updatePane = new JPanel(new BorderLayout());	//맨아래 수정패널
 			//1
-			JPanel updateNorth = new JPanel(new FlowLayout(FlowLayout.LEFT));
-				JLabel updateLb1 = new JLabel("학생정보수정");				
+			updateNorth = new JPanel(new FlowLayout(FlowLayout.LEFT));
+				updateLb1 = new JLabel("학생정보수정");				
 			updateNorth.add(updateLb1); 
 		updatePane.add(BorderLayout.NORTH,updateNorth);
 			//2
-			JPanel updateCenter = new JPanel(new BorderLayout());
-				String title2= "학생번호/전공번호/비밀번호/학생이름/학년/이메일/핸드폰/주소/학적상태/가입일자/생년월일"; 
+			updateCenter = new JPanel(new BorderLayout());
+				title2= "학생번호/전공번호/비밀번호/학생이름/학년/이메일/핸드폰/주소/학적상태/가입일자/생년월일"; 
 				updatemodel = new  DefaultTableModel(title2.split("/"),0);
 				updateTable = new JTable(updatemodel);
 				sp2 = new JScrollPane(updateTable);
 			updateCenter.add(sp2);
 		updatePane.add(BorderLayout.CENTER,updateCenter);
 			//3
-			JPanel updateSouth = new JPanel();
+			updateSouth = new JPanel();
 	    	updateJbt = new JButton(" 수 정 ");
 	    	deleteJbt = new JButton(" 삭 제 ");
 	    	updateSouth.add(updateJbt);
@@ -259,12 +273,8 @@ public class StudentMain extends UI_2 implements ActionListener ,MouseListener {
 			insertlb1P.setPreferredSize(new Dimension(0, 45));
 			
 			insertWestPane= new JPanel(new GridLayout(11,1,5,5));
-//				String insertLb1[]= {" 학 생 번 호 "," 전 공 번 호 "," 비 밀 번 호 "," 이 름 "," 학 년 "
-//									," 이 메 일 "," 전 화 번 호 "," 주 소 "," 학 적 상 태 "," 가 입 일 자 "," 생 년 월 일 "};
+
 			insertCenter = new JPanel(new GridLayout(11,1)); //뒤에 추가한 5는 간격을 5px만큼 주는것
-//				JTextField[] insertTf = {new JTextField(10), new JTextField(4), new JTextField(10),new JTextField(10)
-//										, new JTextField(4),new JTextField(30),new JTextField(15),new JTextField(45)
-//										, new JTextField(10),new JTextField(15), new JTextField(20),};  
 						
 			insertPane.add(BorderLayout.WEST,insertWestPane); //추가패널 서쪽에 패널추가
 				for(int i=0; i<insertLb1.length; i++) {
@@ -278,14 +288,14 @@ public class StudentMain extends UI_2 implements ActionListener ,MouseListener {
 					insertCenter.add(p);
 					
 					//텍스트필드 비활성화
-					if(i==0 || i==9 )  insertTf[i].setEditable(false);
+					if(i==0 || i==2 || i==9 )  insertTf[i].setEditable(false);
 				}
 				
 			
 			
 			insertSouthP = new JPanel();	//레이아웃 멀로하지	
 			insertSouthP.setBorder(new LineBorder(Color.GRAY,1,true));
-			JButton insertJbt = new JButton(" 추 가 "); //추가패널 남쪽에 버튼 추가 //패널안에 넣말	
+			insertJbt = new JButton(" 추 가 "); //추가패널 남쪽에 버튼 추가 //패널안에 넣말	
 			insertJbt.setBackground(new Color(33, 140, 116));
 			insertJbt.setForeground(Color.white);
 			insertJbt.setFont(font);
@@ -309,13 +319,13 @@ public class StudentMain extends UI_2 implements ActionListener ,MouseListener {
 			deletelb1P.setPreferredSize(new Dimension(0, 45));
 		
 			deleteCenterP = new JPanel(); //레이아웃 흠냐뤼
-				JLabel deleteLb1 = new JLabel("학생번호"); //폰트,사이즈
-				deleteTf = new JTextField(15);
-				JButton deleteJbt = new JButton(" 삭 제 ");
-				deleteJbt.setFont(font);
-				deleteJbt.setPreferredSize(new Dimension(100, 30));
-				deleteJbt.setBackground(new Color(33, 140, 116));
-				deleteJbt.setForeground(Color.white);
+//				deleteLb1 = new JLabel("학생번호"); //폰트,사이즈
+//				deleteTf = new JTextField(15);
+//				deleteJbt2 = new JButton(" 삭 제 ");
+//				deleteJbt2.setFont(font);
+//				deleteJbt2.setPreferredSize(new Dimension(100, 30));
+//				deleteJbt2.setBackground(new Color(33, 140, 116));
+//				deleteJbt2.setForeground(Color.white);
 			//deleteCenterP.add(deleteLb1); deleteCenterP.add(deleteTf); deleteCenterP.add(deleteJbt); 
 			
 			deletePane.add(BorderLayout.CENTER,deleteCenterP);
@@ -323,14 +333,14 @@ public class StudentMain extends UI_2 implements ActionListener ,MouseListener {
 			
 			//추가,삭제버튼 이벤트처리
 			insertJbt.addActionListener(this); //추가버튼
-			deleteJbt.addActionListener(this); // 삭제버튼
+			//deleteJbt2.addActionListener(this); // 삭제버튼
 	}
 	
 	//학생추가
 	public void studentInsert() { //학생추가 --- DAO- insertDAO
 		//String Stu_code = insertTf[0].getText(); // not null //시퀀스넘버
 		String Major_Code = insertTf[1].getText(); // not null
-		String stu_pw = insertTf[2].getText();
+		//String stu_pw = insertTf[2].getText();
 		String stu_name = insertTf[3].getText();
 		String stu_grade = insertTf[4].getText();
 		String stu_email=insertTf[5].getText();
@@ -341,18 +351,18 @@ public class StudentMain extends UI_2 implements ActionListener ,MouseListener {
 		String stu_birth = insertTf[10].getText();  // not null 
 		
 		
-		if( Major_Code==null || Major_Code.equals(" ") || stu_pw==null || stu_pw.equals(" ")||
+		if( Major_Code==null || Major_Code.equals(" ") || //stu_pw==null || stu_pw.equals(" ")||
 			stu_name==null || stu_name.equals(" ") || stu_birth==null || stu_birth.equals(" ")	)  { //모든공백허용x 근데 흠......
 				JOptionPane.showMessageDialog(this, "데이터 값을 입력하세요");
 		}else {
 			StudentVO vo = new StudentVO();
 			
 			vo.setMajor_Code(Integer.parseInt(Major_Code));
-			vo.setStu_pw(stu_pw);
+			//vo.setStu_pw(stu_pw); // 초기비밀번호는 생년원일
 			vo.setStu_name(stu_name);
 			vo.setStu_grade(stu_grade);
 			vo.setStu_email(stu_email);
-			vo.setStu_tel(stu_tel); //int
+			vo.setStu_tel(stu_tel); 
 			vo.setStu_add(stu_add);
 			vo.setStu_state(stu_state);
 			//vo.setStu_date((stu_date);

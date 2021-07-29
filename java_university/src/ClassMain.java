@@ -18,6 +18,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+
+
 public class ClassMain extends UI_2 implements ActionListener,MouseListener  {
 
 	JPanel  centerPane = new JPanel(new BorderLayout()); //전체패널
@@ -31,12 +33,21 @@ public class ClassMain extends UI_2 implements ActionListener,MouseListener  {
 			JTable table;
 			JScrollPane sp;
 		JPanel updatePane; //전체패널의 남쪽패널
-			DefaultTableModel updatemodel;
-			JTable updateTable;
-			JScrollPane sp2;
-			JButton updateJbt;
-			JButton deleteJbt;
-			
+			JPanel updateNorth;
+				JLabel updateLb1;
+			JPanel updateCenter;			
+				DefaultTableModel updatemodel;
+				JTable updateTable;
+				JScrollPane sp2;				
+				
+				JPanel tfPane;
+					JLabel tflb1;
+					JLabel tflb2;
+					JTextField tf1;
+					JTextField tf2;
+			JPanel updateSouth;
+				JButton updateJbt;
+				JButton deleteJbt;
 			
 	public ClassMain() {
 		init();
@@ -72,20 +83,28 @@ public class ClassMain extends UI_2 implements ActionListener,MouseListener  {
 		//수정=======================================================================	=	 
 		updatePane = new JPanel(new BorderLayout());	//맨아래 수정패널
 			//1
-			JPanel updateNorth = new JPanel(new FlowLayout(FlowLayout.LEFT));
-				JLabel updateLb1 = new JLabel("강의정보수정");			
+			updateNorth = new JPanel(new FlowLayout(FlowLayout.LEFT));
+				updateLb1 = new JLabel("강의정보수정");			
 				updateNorth.add(updateLb1); 
 			updatePane.add(BorderLayout.NORTH,updateNorth);
 			//2
-			JPanel updateCenter = new JPanel(new BorderLayout());
+			updateCenter = new JPanel(new BorderLayout());
 				String title2= "강의번호/교수번호/이수구분/강의명/학점/강의시간/강의실/수강인원/신청인원/강의등록일";
 				updatemodel = new  DefaultTableModel(title2.split("/"),0);
 				updateTable = new JTable(updatemodel);
 				sp2 = new JScrollPane(updateTable);
-				updateCenter.add(sp2);
+				updateCenter.add(sp2);//updateCenrer의 센터에붙임 -north에붙이는걸로수정할말
+				//updateCenrer의 south에 붙임 - center에붙이는걸로수정할말
+					tfPane = new JPanel( new FlowLayout(FlowLayout.LEFT)); //레이아웃멀로허지
+						tflb1 = new JLabel("신청인원");
+						tflb2 = new JLabel("수강인원");
+						tf1 = new JTextField(5);
+						tf2 = new JTextField(5);
+					tfPane.add(tflb1); tfPane.add(tf1); tfPane.add(tflb2); tfPane.add(tf2);
+				updateCenter.add(BorderLayout.SOUTH,tfPane);
 			updatePane.add(BorderLayout.CENTER,updateCenter);
 			//3
-			JPanel updateSouth = new JPanel();
+			updateSouth = new JPanel();
 		    	updateJbt = new JButton(" 수 정 ");
 		    	deleteJbt = new JButton(" 삭 제 ");
 		    	updateSouth.add(updateJbt); updateSouth.add(deleteJbt);
@@ -252,8 +271,11 @@ public class ClassMain extends UI_2 implements ActionListener,MouseListener  {
 			v.add((String)table.getValueAt(row,9));
 			
 			updatemodel.addRow(v);	
-	
-		
+			
+			//System.out.println(.getValueAt(row,7));
+			tf1.setText((String)table.getValueAt(row,7));
+			tf2.setText((String)table.getValueAt(row,8));
+			
 		} 		
 	}
 
