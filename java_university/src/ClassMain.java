@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
 
 
 
-public class ClassMain extends UI_2 implements ActionListener,MouseListener  {
+public class ClassMain extends AdminUI implements ActionListener,MouseListener  {
 
 	JPanel  centerPane = new JPanel(new BorderLayout()); //전체패널
 		JPanel northPane;//전체패널의북쪽패널

@@ -19,7 +19,7 @@ public class ProfessorModeUI extends JFrame{
 	JButton logout;
 
 	JPanel leftMenuPane;
-	String [] menuTitle = {"강의개설", "강의수정","강의목록","개인정보/수정"};
+	String [] menuTitle = {"강의정보관리", "수강학생목록","강의개설","개인정보/수정"};
 	Font font;
 	
 	

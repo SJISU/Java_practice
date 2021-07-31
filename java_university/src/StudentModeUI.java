@@ -19,7 +19,7 @@ public class StudentModeUI extends JFrame{
 	JButton logout;
 
 	JPanel leftMenuPane;
-	String [] menuTitle = {"강의개설", "강의수정","강의목록","개인정보수정"};
+	String [] menuTitle = {"수강신청", "신청내역조회","수강신청취소","성적확인","개인정보/수정"};
 	Font font;
 	
 	

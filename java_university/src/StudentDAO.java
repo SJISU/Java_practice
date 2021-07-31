@@ -232,7 +232,7 @@ public class StudentDAO extends DBConnection{
 	
 	
 	//학생수정	
-	public int updateRecord(StudentVO vo) {
+	public int updateRecord(StudentVO3 vo) {
 		//쿼리값 셋팅하고 나오는 명령문
 //		System.out.println(vo.allprint());
 			//수정이 됫는지 안됬는지의 정보를 보내준다 
@@ -302,7 +302,7 @@ public class StudentDAO extends DBConnection{
 	
 	
 	//학생추가
-	public int insertRecord(StudentVO vo){
+	public int insertRecord(StudentVO3 vo){
 		//추가등록후에 데이터베이스에도 추가되어야하고 제이테이블회원목록에도 추가된 회원이 출력되어야한다..
 		int cnt=0;
 		try {

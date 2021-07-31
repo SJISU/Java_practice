@@ -153,7 +153,7 @@ public class ProfessorModeMain extends ProfessorModeUI implements ActionListener
 		Object eventBtn = ae.getSource();
 		if(eventBtn==jbt) {//수정
 			profClassUpdate();//수정메소드
-			//profClassAllList();
+			profClassAllList();
 			model2.setRowCount(0); //수정할강의뜨는 부분 리셋
 		}else if(eventBtn==jbt2) {//삭제
 			getClassCode() ;//검색메소드:강의명입력 -> 그 강의명과일차하는데이터의 강의번호가져옴

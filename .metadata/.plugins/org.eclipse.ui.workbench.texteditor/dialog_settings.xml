@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="AllList"/>
+		<item key="selection" value="class_num"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="class_num"/>
+			<item value="studentSearch"/>
+			<item value="MAJOR_NAME"/>
 			<item value="AllList"/>
 			<item value="allRecord"/>
 			<item value="comp"/>
 			<item value="centerPane2"/>
-			<item value="class_num"/>
 			<item value="deleteJbt"/>
 			<item value="class_code"/>
 			<item value="100004"/>
@@ -21,15 +23,13 @@
 			<item value="addActionListener"/>
 			<item value="action"/>
 			<item value="actiobn"/>
-			<item value="studentUpdate"/>
-			<item value="upda"/>
 		</list>
 		<list key="replacehistory">
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="1307"/>
-		<item key="DIALOG_Y_ORIGIN" value="118"/>
+		<item key="DIALOG_X_ORIGIN" value="791"/>
+		<item key="DIALOG_Y_ORIGIN" value="666"/>
 		<item key="DIALOG_WIDTH" value="393"/>
 		<item key="DIALOG_HEIGHT" value="523"/>
 		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>

@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class AdminCenterUI extends JFrame{
+public class AdminUI extends JFrame{
 	
 	String id =AllStateSession.login_id;
 	
@@ -19,7 +19,7 @@ public class AdminCenterUI extends JFrame{
 	JButton logout;
 
 	JPanel leftMenuPane;
-	String [] menuTitle = {"공지사항관리", "강의정보관리","교수정보관리","학생정보관리"};
+	String [] menuTitle = {"공지사항목록","공지사항작성", "강의정보관리","교수정보관리","교수추가","학생정보관리","학생정보개설"};
 	Font font;
 	
 	
@@ -30,7 +30,7 @@ public class AdminCenterUI extends JFrame{
 			JPanel northP_north;
 			JPanel northP_center;
 		
-	public AdminCenterUI() {
+	public AdminUI() {
 		init();
 		
 		
@@ -99,7 +99,7 @@ public class AdminCenterUI extends JFrame{
 	}
 
 	public static void main(String[] args) {
-		new  AdminCenterUI();
+		new  AdminUI();
 	}
 
 }

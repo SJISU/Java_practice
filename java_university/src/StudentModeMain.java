@@ -105,7 +105,7 @@ public class StudentModeMain extends StudentModeUI implements ActionListener ,Mo
 
 		System.out.println("올리스트들어옴");
 		StudentModeDAO dao = new StudentModeDAO(); //관리자모드의 수강관리DAO클래스
-		List<StudentModeVO2> list = dao.allRecord(); //전체학생정보저장소
+		List<StudentModeVO2> list = dao.allRecord3(); //전체학생정보저장소
 		setClassModel(list);//불러온거 셋팅
 			
 	}
@@ -193,7 +193,7 @@ public class StudentModeMain extends StudentModeUI implements ActionListener ,Mo
 		
 		StudentModeDAO dao = new StudentModeDAO();
 		System.out.println("다오만들어졌다 확인");
-		int cnt = dao.updateRecord(vo);
+		int cnt = dao.updateRecord2(vo);
 		System.out.println("!!확인");
 		System.out.println(cnt);
 		

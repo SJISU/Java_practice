@@ -23,7 +23,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
-public class StudentMain2 extends UI_2 implements ActionListener ,MouseListener {
+public class StudentMain2 extends AdminUI implements ActionListener ,MouseListener {
 	
 	//***********학생추가패널****************
 	
@@ -151,7 +151,7 @@ public class StudentMain2 extends UI_2 implements ActionListener ,MouseListener 
 			stu_name==null || stu_name.equals(" ") || stu_birth==null || stu_birth.equals(" ")	)  { //모든공백허용x 근데 흠......
 				JOptionPane.showMessageDialog(this, "데이터 값을 입력하세요");
 		}else {
-			StudentVO vo = new StudentVO();
+			StudentVO3 vo = new StudentVO3();
 			
 			vo.setMajor_Code(Integer.parseInt(Major_Code));
 			//vo.setStu_pw(stu_pw); // 초기비밀번호는 생년원일

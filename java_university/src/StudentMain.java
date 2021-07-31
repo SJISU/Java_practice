@@ -23,7 +23,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
-public class StudentMain extends UI_2 implements ActionListener ,MouseListener {
+public class StudentMain extends AdminUI implements ActionListener ,MouseListener {
 	
 	
 	
@@ -231,7 +231,7 @@ public class StudentMain extends UI_2 implements ActionListener ,MouseListener {
 	//학생정보수정
 	public void studentUpdate() { 	
 		System.out.println("수정업데이트에도착");
-		StudentVO vo = new StudentVO();
+		StudentVO3 vo = new StudentVO3();
 		
 		vo.setStu_Code((Integer)(updateTable.getValueAt(0,0))); // ****not null //시퀀스넘버
 		vo.setMajor_Code(major_Code); // not null
