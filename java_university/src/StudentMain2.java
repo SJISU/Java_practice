@@ -131,7 +131,7 @@ public class StudentMain2 extends UI_2 implements ActionListener ,MouseListener 
 			insertJbt.addActionListener(this); //추가버튼
 			
 	}
-	
+		
 	//학생추가
 	public void studentInsert() { //학생추가 --- DAO- insertDAO
 		//String Stu_code = insertTf[0].getText(); // not null //시퀀스넘버

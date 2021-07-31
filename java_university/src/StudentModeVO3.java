@@ -1,5 +1,5 @@
 
-public class StudentModeVO {
+public class StudentModeVO3 {
    
    private int class_code;
    private int stu_code;
@@ -8,7 +8,7 @@ public class StudentModeVO {
    private String tot_score;
    private String class_time;
    
-   public StudentModeVO() {
+   public StudentModeVO3() {
       
    }
    public int getClass_code() {

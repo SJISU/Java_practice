@@ -5,23 +5,54 @@ public class StudentModeDAO extends DBConnection{
 
 	int id =Integer.parseInt(AllStateSession.login_id); //학생번호	
 
-	int result=5;
-	
-	
-//		SELECT C.CLASS_CODE 강의번호,P.PROF_NAME 담당교수,C.CLASS_NAME 강의이름,C.CLASS_DIV 이수구분,c.CLASS_GRADE 학점
-//      ,C.CLASS_TIME 강의시간, C.CLASS_ROOM 강의실, C.TOT_MEM 수강인원, C.REG_MEM 신청인원, S.CLASS_TIME 강의승인시각
-//		from STUDENT ST,SCORE S ,CLASS C , PROFESSOR P
-//		where S.STU_CODE=1000060 and S.STU_CODE = ST.STU_CODE AND S.CLASS_CODE= C.CLASS_CODE AND P.PROF_CODE = C.PROF_CODE;
-	
-	
 	public StudentModeDAO() {
 		
 	}
-	//갯수알아오기
+	
+	public List<StudentModeVO2> allRecord(){
+		List<StudentModeVO2> list = new ArrayList<StudentModeVO2>();
+		try {
+			
+			dbConn();
+
+			String sql = " SELECT C.CLASS_CODE ,P.PROF_NAME,C.CLASS_DIV ,C.CLASS_NAME  ,c.CLASS_GRADE "
+				     +",C.CLASS_TIME , C.CLASS_ROOM , C.TOT_MEM , C.REG_MEM , to_char(C.CLASS_DATE,'YY-MM-DD') "
+				     +"from CLASS C , PROFESSOR P "
+				     +"where P.PROF_CODE = C.PROF_CODE";
+			
+			
+			pstmt = con.prepareStatement(sql);
+				
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				StudentModeVO2 vo = new StudentModeVO2();
+				vo.setClass_code(rs.getInt(1));
+				vo.setProf_name(rs.getString(2));
+				vo.setClass_div(rs.getString(3));
+				vo.setClass_name(rs.getString(4));
+				vo.setClass_grade(rs.getString(5));
+				vo.setClass_time(rs.getString(6));
+				vo.setClass_room(rs.getString(7));
+				vo.setTot_mem(rs.getInt(8));
+				vo.setReg_mem(rs.getInt(9));
+				vo.setClass_date(rs.getString(10));
+							
+				list.add(vo);
+			}
+				
+		}catch(Exception e){
+			System.out.println("classDAO allRecord 에러 발생....");
+			e.printStackTrace();
+		}finally {
+			dbClose();
+		}
+		return list;
+	}
 	
 	
 	//수강신청 메소드
-	public int insertApplyClass(StudentModeVO vo) {
+	public int insertApplyClass(StudentModeVO3 vo) {
 		System.out.println(id);
 	
 		int cnt=0;
@@ -33,8 +64,7 @@ public class StudentModeDAO extends DBConnection{
 			pstmt = con.prepareStatement(sql);
 			
 			pstmt.setInt(1,vo.getClass_code());
-			pstmt.setInt(2,id);
-			
+			pstmt.setInt(2,id);			
 			
 			cnt= pstmt.executeUpdate(); //몇개의 레코드가 추가되었는지.....
 			
@@ -123,9 +153,5 @@ public class StudentModeDAO extends DBConnection{
 	}
 	
 	
-	public static void main(String[] args) {
-
-
-	}
 
 }

@@ -12,19 +12,19 @@ import javax.swing.JPanel;
 
 import javax.swing.JTextField;
 
-public class StudentModeUI_2 extends JFrame{
+public class StudentModeUI extends JFrame{
 	
 	JPanel northPane;
 	JLabel northlb1; 
 	JButton logout;
 
 	JPanel leftMenuPane;
-	String [] menuTitle = {"수강신청", "신청내역조회","수강신청취소","회원정보/수정"};
+	String [] menuTitle = {"강의개설", "강의수정","강의목록","개인정보수정"};
 	Font font;
 	
 	
 	
-	public StudentModeUI_2() {
+	public StudentModeUI() {
 		
 		init();
 		
@@ -82,7 +82,7 @@ public class StudentModeUI_2 extends JFrame{
 	
 	
 	public static void main(String[] args) {
-		new StudentModeUI_2();
+		new StudentModeUI();
 	}
 
 }

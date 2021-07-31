@@ -15,7 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class StudentModeMain extends StudentModeUI_2 implements ActionListener ,MouseListener{
+public class StudentModeMain extends StudentModeUI implements ActionListener ,MouseListener{
 	//*****교수번호 -> 교수명으로 수정
 	
 	
@@ -62,7 +62,7 @@ public class StudentModeMain extends StudentModeUI_2 implements ActionListener ,
 			centerNorthP.add(BorderLayout.NORTH,northP);
 			//2.
 			centerP = new JPanel(new BorderLayout()); //강의테이블 들어갈패널
-				title= "강의번호/교수번호/이수구분/강의명/학점/강의시간/강의실/수강인원/신청인원/강의등록일"; 
+				title= "강의번호/교수이름/이수구분/강의명/학점/강의시간/강의실/수강인원/신청인원/강의등록일"; 
 				model = new  DefaultTableModel(title.split("/"),0);
 				table = new JTable(model);
 				sp = new JScrollPane(table);
@@ -89,9 +89,12 @@ public class StudentModeMain extends StudentModeUI_2 implements ActionListener ,
 				centerP2.add(sp2);
 			centerSouthP.add(BorderLayout.CENTER,centerP2);
 		
-		//centerNorthP.setPreferredSize(new Dimension(900,0));//사이즈가너무작게나옴
-		centerPane.add(BorderLayout.CENTER,centerNorthP);//큰판에다가 위쪽패널 추가 -**어디에추가할지수정예정	
-		centerPane.add(BorderLayout.SOUTH,centerSouthP); //아니 남쪽에다붙엿는데 왜이렇게 크게나오는겅미ㅠ
+	
+		centerPane.add(BorderLayout.CENTER,centerNorthP);//큰판에다가 위쪽패널 추가
+		centerPane.add(BorderLayout.SOUTH,centerSouthP); //큰판에다가 아래패널 추가
+		
+		centerSouthP.setPreferredSize(new Dimension(0, 200));
+		
 		
 		jbt.addActionListener(this);
 		table.addMouseListener(this);
@@ -101,18 +104,18 @@ public class StudentModeMain extends StudentModeUI_2 implements ActionListener ,
 	public void classAllList() {
 
 		System.out.println("올리스트들어옴");
-		ClassDAO dao = new ClassDAO(); //관리자모드의 수강관리DAO클래스
-		List<ClassVO> list = dao.allRecord(); //전체학생정보저장소
+		StudentModeDAO dao = new StudentModeDAO(); //관리자모드의 수강관리DAO클래스
+		List<StudentModeVO2> list = dao.allRecord(); //전체학생정보저장소
 		setClassModel(list);//불러온거 셋팅
 			
 	}
 		//제이테이블에 목록띄워주기
-		public void setClassModel(List<ClassVO> list) { //리스트를받고		
+		public void setClassModel(List<StudentModeVO2> list) { //리스트를받고		
 			model.setRowCount(0);  
 				for(int i=0; i<list.size(); i++) {
 					
-					ClassVO vo = list.get(i); //회원한명의 정보 ->배열로 만들어서 model에 추가시킬것임
-					Object[]obj = {vo.getClass_code(),vo.getProf_code(),vo.getClass_div(),vo.getClass_name(),vo.getClass_grade(),
+					StudentModeVO2 vo = list.get(i); //회원한명의 정보 ->배열로 만들어서 model에 추가시킬것임
+					Object[]obj = {vo.getClass_code(),vo.getProf_name(),vo.getClass_div(),vo.getClass_name(),vo.getClass_grade(),
 							vo.getClass_time(),vo.getClass_room(), vo.getTot_mem(), vo.getReg_mem(),vo.getClass_date()};
 						
 					model.addRow(obj); //배열추가		
@@ -161,7 +164,7 @@ public class StudentModeMain extends StudentModeUI_2 implements ActionListener ,
 		//int stu_code =Integer.parseInt(AllStateSession.login_id);//학생번호 ??
 		//String class_time = "sysdate";//수강신청날짜 ??설정안해줘도되나?
 		
-		StudentModeVO vo = new StudentModeVO();
+		StudentModeVO3 vo = new StudentModeVO3();
 		vo.setClass_code(class_code);
 		//vo.setStu_code(stu_code);
 		//vo.setClass_time(class_time);

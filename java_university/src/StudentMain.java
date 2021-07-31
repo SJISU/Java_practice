@@ -36,8 +36,7 @@ public class StudentMain extends UI_2 implements ActionListener ,MouseListener {
 		JTextField tf;	
 		JComboBox<String> jcb;
 		JButton jbt;
-		JButton jbt2;
-		
+		JButton jbt2;		
 	JPanel centercenterPane;	
 		JTable table;
 		JScrollPane sp; 
@@ -57,37 +56,21 @@ public class StudentMain extends UI_2 implements ActionListener ,MouseListener {
 		JPanel updateSouth;		
 			JButton updateJbt; //수정버튼
 			JButton deleteJbt;
-	
-	//학생추가,삭제화면
-	JPanel insertPane;//centerPane - north
-		JPanel insertlb1P; //insertPane-north
-			JLabel insertlb1; 
-		JPanel insertWestPane; //insertPane-west
-			String insertLb1[]= {" 학 생 번 호 "," 전 공 번 호 "," 비 밀 번 호 "," 이 름 "," 학 년 "
-								," 이 메 일 "," 전 화 번 호 "," 주 소 "," 학 적 상 태 "," 가 입 일 자 "," 생 년 월 일 "};
-		JPanel insertCenter; //insertPane-center
-			JTextField[] insertTf = {new JTextField(10), new JTextField(4), new JTextField(10),new JTextField(10)
-									, new JTextField(4),new JTextField(30),new JTextField(15),new JTextField(45)
-									, new JTextField(10),new JTextField(15), new JTextField(20),};  
-		JPanel insertSouthP; //insertPane-south
-			JButton insertJbt;
-	JPanel deletePane;//centerPane- center
-		JPanel deletelb1P; //deletrPane-north
-			JLabel deletelb1; 
-		JPanel deleteCenterP; //deletrPane-center
-			JTextField deleteTf;
-			JLabel deleteLb1;
-			JButton deleteJbt2;
-	
+			
+			
+			
+			String major_Name; //수정으로 입력된 전공명
+			int major_Code; //입력된전공명으로 가져온 전공코드
+			
+
 	public StudentMain() {
 		
 		init();
 		add(centerPane);
-//		
-		showStudentAll();//1-1.조회,수정화면 기본셋팅
-		studentAllList();//1-2.학생전체조회+검색버튼이벤트처리
 		
-		//studentInsertView(); //2.학생추가,학생삭제
+		showStudentAll();//1-1.조회,수정,삭제 화면 기본셋팅
+		studentAllList();//1-2.학생전체조회+검색버튼이벤트처리
+
 		
 	}
 
@@ -111,18 +94,17 @@ public class StudentMain extends UI_2 implements ActionListener ,MouseListener {
 			
 		centercenterPane = new JPanel(new BorderLayout());
 			
-			title= "학생번호/전공번호/비밀번호/학생이름/학년/이메일/핸드폰/주소/학적상태/가입일자/생년월일"; 
+			title= "학생번호/학과전공/비밀번호/학생이름/학년/이메일/핸드폰/주소/학적상태/가입일자/생년월일"; 
 			model = new  DefaultTableModel(title.split("/"),0);
 
 		    table = new JTable(model);
 		    sp = new JScrollPane(table);
 		    centercenterPane.add(sp);
 		    
-		    table.addMouseListener(this);
-		 
-		    
+		    table.addMouseListener(this);		 
+	
 		centerPane.add(BorderLayout.CENTER,centercenterPane); //센터페널에 센터에 학생태이블뜨게
-
+//-----------------------------------------------------------------------------------------------
 		updatePane = new JPanel(new BorderLayout());	//맨아래 수정패널
 			//1
 			updateNorth = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -131,7 +113,7 @@ public class StudentMain extends UI_2 implements ActionListener ,MouseListener {
 		updatePane.add(BorderLayout.NORTH,updateNorth);
 			//2
 			updateCenter = new JPanel(new BorderLayout());
-				title2= "학생번호/전공번호/비밀번호/학생이름/학년/이메일/핸드폰/주소/학적상태/가입일자/생년월일"; 
+				title2= "학생번호/학과전공/비밀번호/학생이름/학년/이메일/핸드폰/주소/학적상태/가입일자/생년월일"; 
 				updatemodel = new  DefaultTableModel(title2.split("/"),0);
 				updateTable = new JTable(updatemodel);
 				sp2 = new JScrollPane(updateTable);
@@ -158,19 +140,16 @@ public class StudentMain extends UI_2 implements ActionListener ,MouseListener {
 	
 	public void actionPerformed(ActionEvent ae) {
 		//마우스이벤트는 url테스트....
-		String eventBtn = ae.getActionCommand(); 
-		Object eventBtn2 =ae.getSource();
-		if(eventBtn.equals("검색")) { //학생검색
-			studentSearch();
-		}else if(eventBtn2== updateJbt){//학생수정
-			studentUpdate();
 		
-		}else if(eventBtn.equals(" 추 가 ")) { //학생추가
-			studentInsert();
-			
-		}else if(eventBtn2==deleteJbt) { //학생삭제
+		Object eventBtn =ae.getSource();
+		if(eventBtn==jbt) { //학생검색
+			studentSearch();
+		}else if(eventBtn== updateJbt){//학생수정
+			getMajorCode();
+			studentUpdate();			
+		}else if(eventBtn==deleteJbt) { //학생삭제
 			studentDelete();
-		}else if(eventBtn2==jbt2) {
+		}else if(eventBtn==jbt2) {
 			studentAllList();
 		}
 	}
@@ -180,17 +159,17 @@ public class StudentMain extends UI_2 implements ActionListener ,MouseListener {
 
 		System.out.println("올리스트들어옴");
 		StudentDAO dao = new StudentDAO();
-		List<StudentVO> list = dao.allRecord(); //전체학생정보저장소
+		List<StudentVO2> list = dao.allRecord(); //전체학생정보저장소
 		setStudentModel(list);//불러온거 셋팅
 		
 	}
 	//제이테이블에 목록띄워주기
-	public void setStudentModel(List<StudentVO> list) { //리스트를받고		
+	public void setStudentModel(List<StudentVO2> list) { //리스트를받고		
 		model.setRowCount(0);  
 			for(int i=0; i<list.size(); i++) {
 				
-				StudentVO vo = list.get(i); //회원한명의 정보 ->배열로 만들어서 model에 추가시킬것임
-				Object[]obj = {vo.getStu_Code(),vo.getMajor_Code(),vo.getStu_pw(),vo.getStu_name(),vo.getStu_grade(),
+				StudentVO2 vo = list.get(i); //회원한명의 정보 ->배열로 만들어서 model에 추가시킬것임
+				Object[]obj = {vo.getStu_Code(),vo.getMajor_name(),vo.getStu_pw(),vo.getStu_name(),vo.getStu_grade(),
 						vo.getStu_email(),vo.getStu_tel(), vo.getStu_add(), vo.getStu_state(),vo.getStu_date(),vo.getStu_birth()};
 					
 				model.addRow(obj); //배열추가		
@@ -201,25 +180,53 @@ public class StudentMain extends UI_2 implements ActionListener ,MouseListener {
 	public void studentSearch() {
 			
 			String search =tf.getText(); //검색할단어
-			
+			System.out.println(search);
 			if(search!=null && !search.equals(" ")) { // 검색어가 있다
-				String searchField = (String)jcb.getSelectedItem(); // 검색어 : 학생번호", "학생이름", "학과전공"
+				String searchField = String.valueOf(jcb.getSelectedItem());//**메소드 선택안해도 되는걸로 바꿔야함
+				System.out.println(searchField);
+				// 검색어 : 학생번호", "학생이름", "학과전공"
 				//필드네임을 데이터로 보낸다
 				String fieldName=" "; //어떤필드에서 검색할지 단어가 들어가있음
 				
+				System.out.println("main학생검색메소드도착");
+				
 				if(searchField.equals("학생번호")) {
-					fieldName="Stu_Code";
+					fieldName="s.Stu_Code";
 				}else if(searchField.equals("학생이름")) {
-					fieldName="stu_name";
+					System.out.println("제이콤보박스 학생이름 선택");
+					fieldName="s.stu_name";
 				}else if(searchField.equals("학과전공")) {
-					fieldName="major_name";
+					fieldName="m.major_name";
 				}
 				StudentDAO dao = new StudentDAO();
-				List<StudentVO>list = dao.searchRecord(search,fieldName);
+				List<StudentVO2>list = dao.searchRecord(search,fieldName);
 				setStudentModel(list);
-				tf.setText(" ");
+				tf.setText("");
 			}
 		}
+		
+	//받아온걸 우선LIST에 저장
+	//LIST 에서 강의명으로 강의번호 찾음
+	//디비에 업데이트할때  강의번호로 업데이트
+	
+		
+	//전공명으로 전공번호가져오기
+	public void getMajorCode() {
+		major_Name =String.valueOf(updateTable.getValueAt(0,1));//수정으로 입력된 전공명 가져옴
+			
+			if( major_Name!=null && !major_Name.equals(" ")) {
+				StudentDAO dao = new StudentDAO();
+					//찾기메소드
+				major_Code = dao.searchMajorCode(major_Name);//전공명으로 전공코드가져옴	
+				System.out.println(major_Code);
+					
+			}else if( major_Name==null &&  major_Name.equals(" ")){
+					//JOptionPane.showMessageDialog(this, "삭제할 강의명을 입력하세요");
+			}else {
+				//JOptionPane.showMessageDialog(this, "존재하지 않는 강의명 입니다");
+			}
+	}
+		
 	
 	//학생정보수정
 	public void studentUpdate() { 	
@@ -227,7 +234,7 @@ public class StudentMain extends UI_2 implements ActionListener ,MouseListener {
 		StudentVO vo = new StudentVO();
 		
 		vo.setStu_Code((Integer)(updateTable.getValueAt(0,0))); // ****not null //시퀀스넘버
-		vo.setMajor_Code((Integer)(updateTable.getValueAt(0,1))); // not null
+		vo.setMajor_Code(major_Code); // not null
 		vo.setStu_pw((String)updateTable.getValueAt(0,2)); //입력받은걸 vo저장송에 set
 		vo.setStu_name((String)updateTable.getValueAt(0,3));
 		vo.setStu_grade((String)updateTable.getValueAt(0,4));
@@ -238,159 +245,27 @@ public class StudentMain extends UI_2 implements ActionListener ,MouseListener {
 		vo.setStu_date((String)updateTable.getValueAt(0,9));
 		vo.setStu_birth((String)(updateTable.getValueAt(0,10)));  
 		
-		System.out.println(vo.allprint());
+		//System.out.println(vo.allprint());
 		
 		StudentDAO dao = new StudentDAO();
 		int cnt = dao.updateRecord(vo); //DAO클래스의 update메소드를 이용하여 쿼리문으로 수정함
 		
 		if(cnt>0){//수정시 리스트 다시 선택하기
 			System.out.println("main 학생정보수정성공");
-			JOptionPane.showMessageDialog(this,"회원정보 수정 완료하였습니다");
+			JOptionPane.showMessageDialog(this,"회원정보 수정 완료하였습니다");			
 			studentAllList();
+			updatemodel.setRowCount(0); //수정테이블 리셋
 		}else {
 			//수정실패하면 안내메시지 표시
 			System.out.println("main 학생정보수정오류");
 			JOptionPane.showMessageDialog(this,"회원정보 수정 실패하였습니다");
 		}
 	}
+	
+	
+	
+	
 
-	
-	//======================================================================================
-	//학생추가화면
-	public void studentInsertView() {
-		//센터패널에 패널2개삽입 -> 추가패널 /삭제패널		
-		
-		insertPane = new JPanel(new BorderLayout());//1.추가패널
-			
-			insertlb1P = new JPanel(new BorderLayout());
-			insertlb1P.setBorder(new LineBorder(Color.GRAY,1,true));
-				insertlb1 = new JLabel("학생추가"); //폰트설정,패널안에넣말
-				insertlb1.setFont(font);				
-				insertlb1.setPreferredSize(new Dimension(150, 30));
-			insertlb1P.add(BorderLayout.WEST,insertlb1);
-			
-			insertPane.add(BorderLayout.NORTH,insertlb1P); //삭제패널 북쪽에 라벨 추가
-			insertlb1P.setPreferredSize(new Dimension(0, 45));
-			
-			insertWestPane= new JPanel(new GridLayout(11,1,5,5));
-
-			insertCenter = new JPanel(new GridLayout(11,1)); //뒤에 추가한 5는 간격을 5px만큼 주는것
-						
-			insertPane.add(BorderLayout.WEST,insertWestPane); //추가패널 서쪽에 패널추가
-				for(int i=0; i<insertLb1.length; i++) {
-					JLabel lb1 = new JLabel(insertLb1[i]);
-					insertWestPane.add(lb1);
-				}
-			insertPane.add(BorderLayout.CENTER,insertCenter);//추가패널 센터에 패널추가
-				for(int i=0; i<insertTf.length; i++) {
-					JPanel p = new JPanel(new FlowLayout(FlowLayout.LEFT)); //왼쪽정렬
-					p.add(insertTf[i]);					
-					insertCenter.add(p);
-					
-					//텍스트필드 비활성화
-					if(i==0 || i==2 || i==9 )  insertTf[i].setEditable(false);
-				}
-				
-			
-			
-			insertSouthP = new JPanel();	//레이아웃 멀로하지	
-			insertSouthP.setBorder(new LineBorder(Color.GRAY,1,true));
-			insertJbt = new JButton(" 추 가 "); //추가패널 남쪽에 버튼 추가 //패널안에 넣말	
-			insertJbt.setBackground(new Color(33, 140, 116));
-			insertJbt.setForeground(Color.white);
-			insertJbt.setFont(font);
-			insertJbt.setPreferredSize(new Dimension(100, 30)); //버튼어디에정렬
-			insertSouthP.add(insertJbt);
-			insertPane.add(BorderLayout.SOUTH,insertSouthP);
-			
-			centerPane.add(BorderLayout.NORTH,insertPane);
-			insertPane.setPreferredSize(new Dimension(0, 480));
-		
-		deletePane = new JPanel(new BorderLayout());	//2.삭제패널
-			
-			deletelb1P = new JPanel(new BorderLayout());			
-			//deletelb1P.setBorder(new LineBorder(Color.GRAY,1,true));			
-				deletelb1 = new JLabel("학생삭제"); 
-				deletelb1.setFont(font);			
-				deletelb1.setPreferredSize(new Dimension(150, 30));
-			//deletelb1P.add(BorderLayout.WEST,deletelb1);
-			
-			deletePane.add(BorderLayout.NORTH,deletelb1P); //삭제패널 북쪽에 라벨 추가
-			deletelb1P.setPreferredSize(new Dimension(0, 45));
-		
-			deleteCenterP = new JPanel(); //레이아웃 흠냐뤼
-//				deleteLb1 = new JLabel("학생번호"); //폰트,사이즈
-//				deleteTf = new JTextField(15);
-//				deleteJbt2 = new JButton(" 삭 제 ");
-//				deleteJbt2.setFont(font);
-//				deleteJbt2.setPreferredSize(new Dimension(100, 30));
-//				deleteJbt2.setBackground(new Color(33, 140, 116));
-//				deleteJbt2.setForeground(Color.white);
-			//deleteCenterP.add(deleteLb1); deleteCenterP.add(deleteTf); deleteCenterP.add(deleteJbt); 
-			
-			deletePane.add(BorderLayout.CENTER,deleteCenterP);
-			centerPane.add(BorderLayout.CENTER,deletePane);
-			
-			//추가,삭제버튼 이벤트처리
-			insertJbt.addActionListener(this); //추가버튼
-			//deleteJbt2.addActionListener(this); // 삭제버튼
-	}
-	
-	//학생추가
-	public void studentInsert() { //학생추가 --- DAO- insertDAO
-		//String Stu_code = insertTf[0].getText(); // not null //시퀀스넘버
-		String Major_Code = insertTf[1].getText(); // not null
-		//String stu_pw = insertTf[2].getText();
-		String stu_name = insertTf[3].getText();
-		String stu_grade = insertTf[4].getText();
-		String stu_email=insertTf[5].getText();
-		String stu_tel=insertTf[6].getText();
-		String stu_add=insertTf[7].getText();
-		String stu_state=insertTf[8].getText();
-		//int stu_date=insertTf[9].getText();
-		String stu_birth = insertTf[10].getText();  // not null 
-		
-		
-		if( Major_Code==null || Major_Code.equals(" ") || //stu_pw==null || stu_pw.equals(" ")||
-			stu_name==null || stu_name.equals(" ") || stu_birth==null || stu_birth.equals(" ")	)  { //모든공백허용x 근데 흠......
-				JOptionPane.showMessageDialog(this, "데이터 값을 입력하세요");
-		}else {
-			StudentVO vo = new StudentVO();
-			
-			vo.setMajor_Code(Integer.parseInt(Major_Code));
-			//vo.setStu_pw(stu_pw); // 초기비밀번호는 생년원일
-			vo.setStu_name(stu_name);
-			vo.setStu_grade(stu_grade);
-			vo.setStu_email(stu_email);
-			vo.setStu_tel(stu_tel); 
-			vo.setStu_add(stu_add);
-			vo.setStu_state(stu_state);
-			//vo.setStu_date((stu_date);
-			vo.setStu_birth(stu_birth);		
-			
-			StudentDAO dao = new StudentDAO();
-			int cnt = dao.insertRecord(vo);
-			
-			if(cnt>0) {//학생추가 : 추가된 레코드가 잇을때
-				formDataClear(); //회원이 추가되면 폼의 데이털르 지운다
-				JOptionPane.showMessageDialog(this, "학생추가 되었습니다");
-			}else{ //회원추가실패
-				JOptionPane.showMessageDialog(this, "학생추가 실패하였습니다");
-			}			
-		}
-		
-	}
-	
-	//폼지우기
-	public void formDataClear() {
-			//학생 추가되고나면 form에 있던 데이터를 지운다
-			//폼의 값을 지운다.
-		for(int i=0; i<insertTf.length; i++) {
-				insertTf[i].setText(" ");
-		}
-			
-	}
-	
 	//학생삭제
 	public void studentDelete() {
 		JOptionPane op = new JOptionPane();
@@ -404,6 +279,7 @@ public class StudentMain extends UI_2 implements ActionListener ,MouseListener {
 			if(result>0) {
 				JOptionPane.showMessageDialog(this,"학생데이터를 삭제하였습니다");
 				studentAllList();
+				updatemodel.setRowCount(0); //삭제테이블 리셋
 			}else {
 				JOptionPane.showMessageDialog(this,"데이터삭제를 실패 하였습니다");
 			}
@@ -414,33 +290,7 @@ public class StudentMain extends UI_2 implements ActionListener ,MouseListener {
 		
 		
 	}
-	
-	//학생삭제
-//	public void studentDelete() {//번호를 가져와서 테이블에 있는지 없는지 확인하고
-//			
-//			//삭제할 사원번호
-//			//							      데이터o  데이터x
-//			String delNum = deleteTf.getText(); // "5"  ""
-//			if(delNum==null || delNum.equals(" ")){
-//				JOptionPane.showMessageDialog(this, "삭제할 학생번호를 입력하세요");
-//			}else {
-//				//db작업 -> memberDAO
-//				StudentDAO dao = new StudentDAO();
-//				int result = dao.deleteRecord(Integer.parseInt(delNum)); //0이면삭제x 0이상이면삭제o
-//				if(result>0) { //학생삭제됨
-//					JOptionPane.showMessageDialog(this, delNum+"학생을 삭제하였습니다");
-//					deleteTf.setText(" "); //입력창클리어
-//					
-//				}else {//학생삭제실패
-//					JOptionPane.showMessageDialog(this, delNum+"학생삭제를 실패하였습니다");
-//				}
-//			}
-//			
-//		}
-	
-	
-	
-	
+
 	@Override
 	public void mouseClicked(MouseEvent e) {}
 
@@ -455,16 +305,16 @@ public class StudentMain extends UI_2 implements ActionListener ,MouseListener {
 
 			Vector<Object> v = new Vector<Object>();
 			v.add((Integer)table.getValueAt(row,0));
-			v.add((Integer)table.getValueAt(row,1));
-			v.add((String)table.getValueAt(row,2));
-			v.add((String)table.getValueAt(row,3));
-			v.add((String)table.getValueAt(row,4));
-			v.add((String)table.getValueAt(row,5));
-			v.add((String)table.getValueAt(row,6));
-			v.add((String)table.getValueAt(row,7));
-			v.add((String)table.getValueAt(row,8));
-			v.add((String)table.getValueAt(row,9));
-			v.add((String)table.getValueAt(row,10));
+			v.add(String.valueOf(table.getValueAt(row,1)));
+			v.add(String.valueOf(table.getValueAt(row,2)));
+			v.add(String.valueOf(table.getValueAt(row,3)));
+			v.add(String.valueOf(table.getValueAt(row,4)));
+			v.add(String.valueOf(table.getValueAt(row,5)));
+			v.add(String.valueOf(table.getValueAt(row,6)));
+			v.add(String.valueOf(table.getValueAt(row,7)));
+			v.add(String.valueOf(table.getValueAt(row,8)));
+			v.add(String.valueOf(table.getValueAt(row,9)));
+			v.add(String.valueOf(table.getValueAt(row,10)));
 			updatemodel.addRow(v);	
 			
 		} 		

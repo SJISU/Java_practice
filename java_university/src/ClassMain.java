@@ -40,11 +40,8 @@ public class ClassMain extends UI_2 implements ActionListener,MouseListener  {
 				JTable updateTable;
 				JScrollPane sp2;				
 				
-				JPanel tfPane;
-					JLabel tflb1;
-					JLabel tflb2;
-					JTextField tf1;
-					JTextField tf2;
+				//JPanel tfPane;
+
 			JPanel updateSouth;
 				JButton updateJbt;
 				JButton deleteJbt;
@@ -72,7 +69,7 @@ public class ClassMain extends UI_2 implements ActionListener,MouseListener  {
 		centerPane.add(BorderLayout.NORTH,northPane);//센터페널에 검색페널추가
 		
 		centercenterPane = new JPanel(new BorderLayout()); //전체패널의센터의 센터
-			String title= "강의번호/교수번호/이수구분/강의명/학점/강의시간/강의실/수강인원/신청인원/강의등록일";
+			String title= "강의번호/교수번호/이수구분/강의명/교수명/학점/강의시간/강의실/수강인원/신청인원/강의등록일";
 			model = new  DefaultTableModel(title.split("/"),0);
 		    table = new JTable(model);
 		    sp = new JScrollPane(table);
@@ -89,19 +86,15 @@ public class ClassMain extends UI_2 implements ActionListener,MouseListener  {
 			updatePane.add(BorderLayout.NORTH,updateNorth);
 			//2
 			updateCenter = new JPanel(new BorderLayout());
-				String title2= "강의번호/교수번호/이수구분/강의명/학점/강의시간/강의실/수강인원/신청인원/강의등록일";
+				String title2= "강의번호/교수번호/이수구분/강의명/교수명/학점/강의시간/강의실/수강인원/신청인원/강의등록일";
 				updatemodel = new  DefaultTableModel(title2.split("/"),0);
 				updateTable = new JTable(updatemodel);
 				sp2 = new JScrollPane(updateTable);
 				updateCenter.add(sp2);//updateCenrer의 센터에붙임 -north에붙이는걸로수정할말
 				//updateCenrer의 south에 붙임 - center에붙이는걸로수정할말
-					tfPane = new JPanel( new FlowLayout(FlowLayout.LEFT)); //레이아웃멀로허지
-						tflb1 = new JLabel("신청인원");
-						tflb2 = new JLabel("수강인원");
-						tf1 = new JTextField(5);
-						tf2 = new JTextField(5);
-					tfPane.add(tflb1); tfPane.add(tf1); tfPane.add(tflb2); tfPane.add(tf2);
-				updateCenter.add(BorderLayout.SOUTH,tfPane);
+					//tfPane = new JPanel( new FlowLayout(FlowLayout.LEFT)); //레이아웃멀로허지
+
+				//updateCenter.add(BorderLayout.SOUTH,tfPane);
 			updatePane.add(BorderLayout.CENTER,updateCenter);
 			//3
 			updateSouth = new JPanel();
@@ -127,17 +120,17 @@ public class ClassMain extends UI_2 implements ActionListener,MouseListener  {
 
 		System.out.println("강의올리스트들어옴");
 		ClassDAO dao = new ClassDAO();
-		List<ClassVO> list = dao.allRecord(); //전체학생정보저장소
+		List<ClassVO2> list = dao.allRecord(); //전체학생정보저장소
 		setClassModel(list);//불러온거 셋팅
 			
 		}
 	//제이테이블에 목록띄워주기
-	public void setClassModel(List<ClassVO> list) { //리스트를받고		
+	public void setClassModel(List<ClassVO2> list) { //리스트를받고		
 		model.setRowCount(0);  
 			for(int i=0; i<list.size(); i++) {
 					
-				ClassVO vo = list.get(i); //회원한명의 정보 ->배열로 만들어서 model에 추가시킬것임
-				Object[]obj = {vo.getClass_code(),vo.getProf_code(),vo.getClass_div(),vo.getClass_name(),vo.getClass_grade(),
+				ClassVO2 vo = list.get(i); //회원한명의 정보 ->배열로 만들어서 model에 추가시킬것임
+				Object[]obj = {vo.getClass_code(),vo.getProf_code(),vo.getClass_div(),vo.getClass_name(),vo.getProf_name(),vo.getClass_grade(),
 							vo.getClass_time(),vo.getClass_room(), vo.getTot_mem(), vo.getReg_mem(),vo.getClass_date()};
 						
 				model.addRow(obj); //배열추가		
@@ -155,8 +148,10 @@ public class ClassMain extends UI_2 implements ActionListener,MouseListener  {
 			classAllList();
 		}else if(eventBtn==updateJbt) {//수정
 			classUpdate();
+			updatemodel.setRowCount(0);//수정할강의 뜨는 부분 리셋
 		}else if(eventBtn==deleteJbt) {//삭제 -updatetable 리셋하고 디비에서쿼리문으로삭제
 			classDelete();
+			updatemodel.setRowCount(0);
 		}		
 		
 	}
@@ -166,21 +161,21 @@ public class ClassMain extends UI_2 implements ActionListener,MouseListener  {
 		String search =tf.getText(); //검색할단어
 		
 		if(search!=null && !search.equals(" ")) { // 검색어가 있다
-			String searchField = (String)jcb.getSelectedItem(); // 검색어 : 학생번호", "학생이름", "학과전공"
+			String searchField =String.valueOf(jcb.getSelectedItem()); // 검색어 : 학생번호", "학생이름", "학과전공"
 			//필드네임을 데이터로 보낸다
 			String fieldName=" "; //어떤필드에서 검색할지 단어가 들어가있음
 			
 			if(searchField.equals("강의번호")) {
-				fieldName="class_code";
+				fieldName="c.class_code";
 			}else if(searchField.equals("강의명")) {
-				fieldName="class_name";
+				fieldName="c.class_name";
 			}else if(searchField.equals("담당교수")) {
-				fieldName="prof_name";
+				fieldName="p.jkkjprof_name";
 			}
 			ClassDAO dao = new ClassDAO();
-			List<ClassVO>list = dao.searchRecord(search,fieldName);
+			List<ClassVO2>list = dao.searchRecord(search,fieldName);
 			setClassModel(list);
-			tf.setText(" ");
+			tf.setText("");
 		}
 	}
 	
@@ -192,14 +187,22 @@ public class ClassMain extends UI_2 implements ActionListener,MouseListener  {
 		try {
 		vo.setClass_code((Integer)(updateTable.getValueAt(0,0))); // not null //시퀀스넘버
 		vo.setProf_code((Integer)(updateTable.getValueAt(0,1))); // not null
-		vo.setClass_div((String)updateTable.getValueAt(0,2)); //입력받은걸 vo저장송에 set
-		vo.setClass_name((String)updateTable.getValueAt(0,3));
-		vo.setClass_grade((String)updateTable.getValueAt(0,4));
-		vo.setClass_time((String)updateTable.getValueAt(0,5));
-		vo.setClass_room((String)updateTable.getValueAt(0,6)); //엥 이거 int아니냐
-		vo.setTot_mem((Integer)updateTable.getValueAt(0,7));
-		vo.setReg_mem((Integer)updateTable.getValueAt(0,8));
-		vo.setClass_date((String)updateTable.getValueAt(0,9));
+		vo.setClass_div(String.valueOf(updateTable.getValueAt(0,2))); //입력받은걸 vo저장송에 set
+		vo.setClass_name(String.valueOf(updateTable.getValueAt(0,3)));
+		//vo.setProf_name(String.valueOf(updateTable.getValueAt(0,4)));
+		vo.setClass_grade(String.valueOf(updateTable.getValueAt(0,5)));
+		vo.setClass_time(String.valueOf(updateTable.getValueAt(0,6)));
+		vo.setClass_room(String.valueOf(updateTable.getValueAt(0,7))); 
+		
+		String a = String.valueOf(updateTable.getValueAt(0,8));
+		int a1 = Integer.parseInt(a);
+		vo.setTot_mem(a1);
+		
+		String b = String.valueOf(updateTable.getValueAt(0,9));
+		int b1 = Integer.parseInt(b);
+		vo.setReg_mem(b1);
+		
+		vo.setClass_date(String.valueOf(updateTable.getValueAt(0,10)));
 		
 		}catch(Exception ee) {
 			System.out.println("classUpdate()메소드오류");
@@ -234,6 +237,7 @@ public class ClassMain extends UI_2 implements ActionListener,MouseListener  {
 			if(result>0) {
 				JOptionPane.showMessageDialog(this,"강의를 삭제하였습니다");
 				classAllList();
+				//updatemodel.setRowCount(0); // 왜 안없어지지?
 			}else {
 				JOptionPane.showMessageDialog(this,"강의삭제를 실패 하였습니다");
 			}
@@ -261,20 +265,27 @@ public class ClassMain extends UI_2 implements ActionListener,MouseListener  {
 			Vector<Object> v = new Vector<Object>();
 			v.add((Integer)table.getValueAt(row,0));
 			v.add((Integer)table.getValueAt(row,1));
-			v.add((String)table.getValueAt(row,2));
-			v.add((String)table.getValueAt(row,3));
-			v.add((String)table.getValueAt(row,4));
-			v.add((String)table.getValueAt(row,5));
-			v.add((String)table.getValueAt(row,6));
-			v.add((Integer)table.getValueAt(row,7));
-			v.add((Integer)table.getValueAt(row,8));
-			v.add((String)table.getValueAt(row,9));
+			v.add(String.valueOf(table.getValueAt(row,2)));
+			v.add(String.valueOf(table.getValueAt(row,3)));
+			v.add(String.valueOf(table.getValueAt(row,4))); //교수명
+			v.add(String.valueOf(table.getValueAt(row,5)));
+			v.add(String.valueOf(table.getValueAt(row,6)));
+			v.add(String.valueOf(table.getValueAt(row,7)));
+			String a = String.valueOf(table.getValueAt(row,8));
+			int a1 = Integer.parseInt(a);
+			v.add(a1);
+			
+			String b = String.valueOf(table.getValueAt(row,9));
+			int b1 = Integer.parseInt(b);
+			v.add(b1);
+			
+			v.add(String.valueOf(table.getValueAt(row,10)));
 			
 			updatemodel.addRow(v);	
 			
 			//System.out.println(.getValueAt(row,7));
-			tf1.setText((String)table.getValueAt(row,7));
-			tf2.setText((String)table.getValueAt(row,8));
+//			tf1.setText(String.valueOf(table.getValueAt(row,7)));
+//			tf2.setText(String.valueOf(table.getValueAt(row,8)));
 			
 		} 		
 	}
