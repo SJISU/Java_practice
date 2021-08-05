@@ -112,10 +112,13 @@ public class StudentModeDAO extends DBConnection{
 		
 		try {
 			dbConn();
-			String sql = " SELECT C.CLASS_CODE ,P.PROF_NAME ,C.CLASS_NAME ,C.CLASS_DIV ,c.CLASS_GRADE "
-				     +",C.CLASS_TIME , C.CLASS_ROOM , C.TOT_MEM , C.REG_MEM , S.CLASS_TIME "
+			String sql = " SELECT C.CLASS_CODE ,P.PROF_NAME ,C.CLASS_DIV,C.CLASS_NAME  ,c.CLASS_GRADE "
+				     +",C.CLASS_TIME , C.CLASS_ROOM , C.TOT_MEM , C.REG_MEM , to_char(S.CLASS_TIME,'YY-MM-DD') "
 				     +"from STUDENT ST,SCORE S ,CLASS C , PROFESSOR P "
-				     +"where S.STU_CODE=? and S.STU_CODE = ST.STU_CODE AND S.CLASS_CODE= C.CLASS_CODE AND P.PROF_CODE = C.PROF_CODE";
+				     +"where S.STU_CODE=? and S.STU_CODE = ST.STU_CODE AND S.CLASS_CODE= C.CLASS_CODE AND P.PROF_CODE = C.PROF_CODE" ;
+				     //+" AND S.CLASS_CODE NOT IN (SELECT C.CLASS_CODE FROM CLASS C where C.CLASS_CODE Between 1 and 9999);";
+			
+			
 			System.out.println("sql"+sql);
 			
 			pstmt = con.prepareStatement(sql);
@@ -388,6 +391,61 @@ public class StudentModeDAO extends DBConnection{
 	            
 	            return cnt;
 	         }
+	         
+	         
+	         
+	     //강의검색
+	    public List<StudentModeVO2> searchClassRecord2(String search,String fieldName) {
+	     			
+	     List<StudentModeVO2> list = new ArrayList<StudentModeVO2>();
+	     try {
+	     	dbConn();
+	     	
+	     	/*
+	     	 String sql = " SELECT C.CLASS_CODE ,P.PROF_NAME ,C.CLASS_DIV,C.CLASS_NAME  ,c.CLASS_GRADE "
+				     +",C.CLASS_TIME , C.CLASS_ROOM , C.TOT_MEM , C.REG_MEM , to_char(S.CLASS_TIME,'YY-MM-DD') "
+				     +"from STUDENT ST,SCORE S ,CLASS C , PROFESSOR P "
+				     +"where S.STU_CODE=? and S.STU_CODE = ST.STU_CODE AND S.CLASS_CODE= C.CLASS_CODE AND P.PROF_CODE = C.PROF_CODE";
+	     	 * */
+  			
+	     	String sql = "select c.class_code, p.prof_name,c.class_div,c.class_name,c.class_grade , "
+	     		       + "c.class_time, c.class_room, c.tot_mem,c.reg_mem, to_char(c.class_date,'YY-MM-DD')" 
+	     		       + " from class c , professor p"
+	     		       +" where c.prof_code = p.prof_code and "+fieldName+" like ? ";
+	     			
+	     			
+	     			
+	     		System.out.println("sql"+sql);
+	     		pstmt = con.prepareStatement(sql);
+	     				
+	     		pstmt.setString(1,"%"+search+"%"); // %김% //***수정****
+	     		rs =pstmt.executeQuery(); //선택된레코드의 정보가 들어가잇음:셀렉트된정보
+	     				
+	     				
+	     		while(rs.next()) {
+	     			StudentModeVO2 vo = new StudentModeVO2();
+	     			vo.setClass_code(rs.getInt(1));
+	     			vo.setProf_name(rs.getString(2));
+	     			vo.setClass_div(rs.getString(3));
+	     			vo.setClass_name(rs.getString(4));	     			
+	     			vo.setClass_grade(rs.getString(5));
+	     			vo.setClass_time(rs.getString(6));
+	     			vo.setClass_room(rs.getString(7));
+	     			vo.setTot_mem(rs.getInt(8));
+	     			vo.setReg_mem(rs.getInt(9));
+	     			vo.setClass_date(rs.getString(10));
+	     				
+	     			list.add(vo);
+	     		}
+	     				
+	     	}catch(Exception e) {
+	     		System.out.println("StudentModeDAO강의검색에러 발생.......");
+	     		e.printStackTrace();
+	     	}finally {
+	     		dbClose();
+	     	}
+	     		return list;
+	     }
 	
 
 }

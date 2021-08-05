@@ -167,41 +167,6 @@ public class ClassDAO  extends DBConnection{
 		return cnt;			
 	}
 	
-	
-	
-//	  //수영언니 강의추가
-//	   public int insertRecord(ClassVO vo) {//교수가 강의추가하는 메소드
-//	      int cnt=0;
-//	      try {
-//	         dbConn();
-//	         String sql="insert into class values(cl_code.nextval,?, ?, ?, ?, ?, ?, ?, ?,sysdate)";
-//	         
-//	         pstmt = con.prepareStatement(sql);
-//	            pstmt.setInt(1, vo.getProf_code());
-//	            pstmt.setString(2, vo.getClass_div());
-//	            pstmt.setString(3, vo.getClass_name());
-//	            pstmt.setString(4,vo.getClass_grade());
-//	            pstmt.setString(5,vo.getClass_time());
-//	            pstmt.setString(6,vo.getClass_room());
-//	            pstmt.setInt(7,vo.getTot_mem()); 
-//	            pstmt.setInt(8,vo.getReg_mem());         
-//	         
-//	            
-//	         cnt = pstmt.executeUpdate();
-//	         
-//	      }catch(Exception e) {
-//	         System.out.println("강의추가에러");
-//	         e.printStackTrace();
-//	      }finally {
-//	         dbClose();
-//	      }
-//	      return cnt;
-//	   }
-	   
-	
-//	public static void main(String[] args) {
-//		new ClassDAO();
-//
-//	}
+
 
 }
