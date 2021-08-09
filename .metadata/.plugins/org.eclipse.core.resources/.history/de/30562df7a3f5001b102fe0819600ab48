@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>UL ,OL 태그</title>
+</head>
+<body>
+<pre>
+	ul태그 : 순서가 없는 리스트 태그(Un Oriented List) 넘버링을 하지 않는다
+</pre>
+</body>
+</html>

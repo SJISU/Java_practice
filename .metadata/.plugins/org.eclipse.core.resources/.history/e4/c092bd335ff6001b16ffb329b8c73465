@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!-- 
+	colspan속성 : 칸병합 : 나포함합여합칠칸수를 속성값으로 대입
+	rowspan속성 : 행병합 :   
+
+ -->
+<table border="1">
+	<tr>
+		<td>AAAAAAA</td>
+		<td colspan="2">BBBBBBB</td>
+		<td>CCCCCCC</td>
+	</tr>
+	<tr>
+		<td>DDDDDDD</td>
+		<td>EEEEEEE</td>
+		<td rowspan="2">FFFFFFF</td>
+		<td>HHHHHHH</td>
+	</tr>
+
+</table>
+</body>
+</html>

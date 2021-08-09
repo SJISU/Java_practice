@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>UL ,OL 태그</title>
+</head>
+<body>
+<pre>
+	ul태그 : 순서가 없는 리스트 태그(Un Oriented List) 넘버링을 하지 않는다
+	
+	li태그 : ul,ol 태그내에 목록을 표시하는 태그
+</pre>
+<!-- 
+	type : disk(채워진 원), circle(안이비워진원), square(채워진사각형)
+ -->
+<ul type="ciecle">
+	<li>자바</li>
+	<li>스프링</li>
+	<li>마이바티스</li>
+	<li>파이썬</li>
+</ul>
+</body>
+</html>

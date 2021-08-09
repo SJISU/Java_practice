@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>표만들기</h1>
+<pre>
+	table태그 : 표의 시작과 긑
+</pre>
+<table>
+
+</table>
+</body>
+</html>

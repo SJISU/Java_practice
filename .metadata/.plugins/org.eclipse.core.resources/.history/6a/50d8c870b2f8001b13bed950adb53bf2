@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="style.css" rel="stylesheet" type="text/css"/>
+<style>
+	/* float : left, right*/
+	li{float:left;
+		/* list-style-position:inside; */
+		list-style-type:none;
+	}
+	
+</style>
+</head>
+<body>
+<h1>외부파일을 이용한 스타일 적용</h1>
+<ul>	
+	<li><a href="/webApp2.index.html">홈</a></li>
+	<li><a href="tag02_img.html">이미지</a></li>
+	<li><a href="https://www.nate.com">네이트</a></li>
+	<li><a href="tag08_video.html">동영상</a></li>
+</ul>
+</body>
+</html>
