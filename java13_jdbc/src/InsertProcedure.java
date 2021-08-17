@@ -14,8 +14,8 @@ public class InsertProcedure extends DBConnection {
 			sql ="{call mem_insert(?,?,?)}";
 			CallableStatement cstmt = con.prepareCall(sql);
 			
-			cstmt.setString(1,"홍길동");
-			cstmt.setString(2,"010-8888-9999");
+			cstmt.setString(1,"김다나");
+			cstmt.setString(2,"010-8888-1111");
 			cstmt.registerOutParameter(3, Types.INTEGER);
 			
 			cstmt.executeUpdate(); //실행 --3번째?의 결과가 담겨져 있음
